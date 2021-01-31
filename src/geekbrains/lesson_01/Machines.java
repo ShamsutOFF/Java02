@@ -3,7 +3,7 @@ package geekbrains.lesson_01;
 import geekbrains.lesson_01.actions.Jump;
 import geekbrains.lesson_01.actions.Run;
 
-public class Machines extends Animals implements Run, Jump {
+public class Machines implements Run, Jump {
     protected String name;
     protected int jump;
     protected int run;

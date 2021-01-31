@@ -5,6 +5,7 @@ import geekbrains.lesson_01.obstacles.Treadmill;
 import geekbrains.lesson_01.obstacles.Wall;
 import geekbrains.lesson_01.participants.Cat;
 import geekbrains.lesson_01.participants.Human;
+import geekbrains.lesson_01.participants.Participant;
 import geekbrains.lesson_01.participants.Robot;
 
 public class Main {
@@ -16,13 +17,12 @@ public class Main {
         Treadmill treadmill = new Treadmill (1000);
         Wall wall = new Wall (5);
 
-        Animals[] animals = {human,cat,robot};
-
+         Participant[] participants = {human,cat,robot};
         Obstacles[] obstacles = {treadmill, wall};
 
-        for (Animals animal : animals){
-            animal.jumping (wall.getWallHeight ());
-            animal.running (treadmill.getTreadmillDistance ());
+        for (Participant participant : participants){
+            participant.jumping (wall.getWallHeight ());
+            participant.running (treadmill.getTreadmillDistance ());
         }
 
     }
