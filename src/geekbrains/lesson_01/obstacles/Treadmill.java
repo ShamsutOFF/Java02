@@ -7,8 +7,8 @@ public class Treadmill implements Obstacles{
     }
 
     @Override
-    public int createObstacle() {
-        return 0;
+    public int obstacleInfo() {
+        return this.distance;
     }
 
     public int getTreadmillDistance () {return this.distance;}

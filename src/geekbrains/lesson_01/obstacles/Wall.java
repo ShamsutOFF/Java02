@@ -7,9 +7,8 @@ public class Wall implements Obstacles{
     }
 
     @Override
-    public int createObstacle() {
-        return 0;
+    public int obstacleInfo() {
+        return this.height;
     }
 
-    public int getWallHeight () {return this.height;}
 }

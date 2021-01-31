@@ -17,14 +17,17 @@ public class Main {
         Treadmill treadmill = new Treadmill (1000);
         Wall wall = new Wall (5);
 
-         Participant[] participants = {human,cat,robot};
-        Obstacles[] obstacles = {treadmill, wall};
+        Participant[] participants = {human,cat,robot};
+        Obstacles[] obstacles = {treadmill, wall, };
 
-        for (Participant participant : participants){
-            participant.jumping (wall.getWallHeight ());
-            participant.running (treadmill.getTreadmillDistance ());
+        for (Participant participant : participants) {
+            for (Obstacles obstacle : obstacles) {
+                if (obstacle.equals (wall)) participant.jumping (obstacle.obstacleInfo ( ));
+                if (obstacle.equals (treadmill)) participant.running (obstacle.obstacleInfo ( ));
+
+
+            }
         }
-
     }
 }
 //        Создайте три класса Человек, Кот, Робот, которые не наследуются от одного класса.
