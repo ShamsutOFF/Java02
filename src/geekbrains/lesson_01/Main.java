@@ -15,15 +15,18 @@ public class Main {
         Robot robot = new Robot ("Карбюратор", 10,2000);
 
         Treadmill treadmill = new Treadmill (1000);
+        Treadmill treadmill2 = new Treadmill (2000);
         Wall wall = new Wall (5);
+        Wall wall2 = new Wall (3);
 
         Participant[] participants = {human,cat,robot};
-        Obstacles[] obstacles = {treadmill, wall, };
+        Obstacles[] obstacles = {treadmill,treadmill2,wall,wall2};
 
         for (Participant participant : participants) {
             for (Obstacles obstacle : obstacles) {
-                if (obstacle.equals (wall)) participant.jumping (obstacle.obstacleInfo ( ));
-                if (obstacle.equals (treadmill)) participant.running (obstacle.obstacleInfo ( ));
+             //   System.out.println (obstacle instanceof Wall );
+                if (obstacle instanceof Wall) participant.jumping (obstacle.obstacleInfo ( ));
+                if (obstacle instanceof Treadmill) participant.running (obstacle.obstacleInfo ( ));
 
 
             }
