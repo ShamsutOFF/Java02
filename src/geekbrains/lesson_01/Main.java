@@ -1,6 +1,7 @@
 package geekbrains.lesson_01;
 
 import geekbrains.lesson_01.obstacles.Obstacles;
+import geekbrains.lesson_01.obstacles.Pool;
 import geekbrains.lesson_01.obstacles.Treadmill;
 import geekbrains.lesson_01.obstacles.Wall;
 import geekbrains.lesson_01.participants.Cat;
@@ -9,28 +10,30 @@ import geekbrains.lesson_01.participants.Participant;
 import geekbrains.lesson_01.participants.Robot;
 
 public class Main {
-    public static void main(String[] args) {
-        Human human = new Human ("Вася", 2,1500);
-        Cat cat = new Cat ("Барсик", 5,500);
-        Robot robot = new Robot ("Карбюратор", 10,2000);
 
-        Treadmill treadmill = new Treadmill (1000);
-        Treadmill treadmill2 = new Treadmill (2000);
-        Wall wall = new Wall (5);
-        Wall wall2 = new Wall (3);
+    public static void main(String[] args) {
+
+        Human human = new Human ("Вася", rnd (1,4),rnd (500,2000), rnd (50,1000));
+        Cat cat = new Cat ("Барсик", rnd (3,7),rnd (200,1000), rnd (50,300));
+        Robot robot = new Robot ("Карбюратор", rnd (0,10),rnd (1000,3000));
+
+        Wall wall = new Wall (rnd (1,10));
+        Treadmill treadmill = new Treadmill (rnd (200,3000));
+        Pool pool = new Pool (rnd (50,1000));
 
         Participant[] participants = {human,cat,robot};
-        Obstacles[] obstacles = {treadmill,treadmill2,wall,wall2};
+        Obstacles[] obstacles = {treadmill,pool,wall};
 
-        for (Participant participant : participants) {
             for (Obstacles obstacle : obstacles) {
-             //   System.out.println (obstacle instanceof Wall );
-                if (obstacle instanceof Wall) participant.jumping (obstacle.obstacleInfo ( ));
-                if (obstacle instanceof Treadmill) participant.running (obstacle.obstacleInfo ( ));
-
-
+                for (Participant participant : participants) {
+                obstacle.doIt (participant, obstacle.obstacleInfo ( ));
             }
         }
+    }
+    public static int rnd(int min, int max)
+    {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
     }
 }
 //        Создайте три класса Человек, Кот, Робот, которые не наследуются от одного класса.

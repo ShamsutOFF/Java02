@@ -2,21 +2,20 @@ package geekbrains.lesson_01.obstacles;
 
 import geekbrains.lesson_01.participants.Participant;
 
-public class Treadmill implements Obstacles{
-    protected int distance;
-    public Treadmill (int distance){
-        this.distance = distance;
+public class Pool implements Obstacles  {
+    protected int length;
+
+    public Pool(int length) {
+        this.length = length;
     }
 
     @Override
     public int obstacleInfo() {
-        return this.distance;
+        return this.length;
     }
 
     @Override
     public void doIt(Participant participant, int i) {
-        participant.running (i);
-
+        participant.swimming (i);
     }
-
 }
