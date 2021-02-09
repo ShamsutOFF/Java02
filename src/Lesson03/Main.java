@@ -9,18 +9,24 @@ public class Main {
         System.out.println (hashSet);
 
         Map<String, Integer> nuwWords = new HashMap<> ();
-        nuwWords.put (str[0], 0);
+        for (String s : str) {
+            if(nuwWords.containsKey (s))  nuwWords.put (s,nuwWords.get (s)+1);
+            else nuwWords.put (s, 1);
+        }
         System.out.println (nuwWords );
-//        for (String s: str) {
-//            if (nuwWords.containsKey (s)){
-//                nuwWords.put (s,1);
-//            }
-//            else {
-//                nuwWords.put (s, nuwWords.get (s)+1);
-//            }
-//        }
-//        System.out.println (nuwWords );
+
+        PhoneBook.set ("Иванов",111);
+        PhoneBook.set ("Петров",222);
+        PhoneBook.set ("Сидоров",333);
+        PhoneBook.set ("Коровин",444);
+        PhoneBook.set ("Иванов",555);
+        PhoneBook.set ("Иванов",777);
+
+        PhoneBook.get ("Иванов");
+
+
     }
+
 }
 
 
