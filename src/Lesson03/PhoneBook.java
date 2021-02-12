@@ -6,7 +6,7 @@ public class PhoneBook {
     static Set <Abonent> set = new TreeSet<> ();
 
     public static void set(String s, int i) {
-        set.add( new Abonent (s,i));
+        set.add ( new Abonent (s,i));
     }
 
     public static void get(String s){
