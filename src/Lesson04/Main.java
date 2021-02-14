@@ -2,6 +2,8 @@ package Lesson04;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Main {
@@ -24,7 +26,6 @@ public class Main {
 
             TextArea textArea = new TextArea ( );
             textArea.setEditable (false);
-            textArea.setText ("Здесь будут сообщения");
 
             TextField textField = new TextField (2);
 
@@ -43,16 +44,26 @@ public class Main {
 
             ArrayList <String> messages = new ArrayList<String> ();
 
-            messages.add ("TEST");
-
             miFileExit.addActionListener (e -> System.exit (0));
 
-            btnSendMessage.addActionListener ( e -> textArea.setText (messages + textField.getText ()));
-//            btnSendMessage.addActionListener (e -> System.out.println (textField.getText ()));
+            btnSendMessage.addActionListener (new ActionListener ( ) {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    messages.add  ("\n" + textField.getText ());
+                    textArea.setText(String.valueOf (messages));
+                    textField.setText ("");
+                    }
+            });
+//            btnSendMessage.addActionListener ( e -> textArea.setText (messages + textField.getText ()));
 
-
-        }public static String story() {
-            return null;
+            textField.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    messages.add  ("\n" + textField.getText ());
+                    textArea.setText(String.valueOf (messages));
+                    textField.setText ("");
+                }
+            });
         }
     }
 }
