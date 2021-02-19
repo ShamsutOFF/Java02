@@ -2,9 +2,9 @@ package Lesson05;
 
 import java.util.Arrays;
 
-public class Main {
+public class Main2 {
 
-    static final int SIZE = 1000000 ;
+    static final int SIZE = 100000 ;
     static final int HALF = SIZE / 2 ;
     static float [] arr = new float [ SIZE ];
     static float [] arr2 = new float [ SIZE ];
@@ -17,10 +17,10 @@ public class Main {
         method01();
         method02();
     }
-    public static float method (float[]a, int b){
-        for (int i = 0; i <a.length ; i++) {
-            a[i] = ( float )( a [ i ] * Math . sin ( 0.2f + (i+b) / 5 ) * Math . cos ( 0.2f + (i+b) / 5 ) *
-                    Math . cos ( 0.4f + (i+b) / 2 ));
+    public static float method (int a, int b){
+        for (int i = a; i <arr.length ; i+=b) {
+            arr2[i] = ( float )( arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
+                    Math . cos ( 0.4f + i / 2 ));
         }
         return 0;
     }
@@ -32,37 +32,32 @@ public class Main {
                     Math . cos ( 0.4f + i / 2 ));
         }
         long b = System.currentTimeMillis();
-//        System.out.print (Arrays.toString (arr));
+ //       System.out.print (Arrays.toString (arr));
         System.out.println (b-a);
     }
 
     public static void method02(){
-        long a = System.currentTimeMillis();
-        float a1[] = new float[HALF],
-                a2[] = new float[HALF];
-        System.arraycopy(arr2, 0, a1, 0, HALF);
-        System.arraycopy(arr2, HALF, a2, 0, HALF);
-        MyThread t1 = new MyThread (method (a1,0));
-        //       MyThread t1 = new MyThread (a1,0);
-        MyThread t2 = new MyThread (method (a2,HALF));
-        t1.start ();
-        t2.start ();
 
-        System.arraycopy (a1,0,arr2,0,HALF);
-        System.arraycopy (a2,0,arr2,HALF,HALF);
+        long a = System.currentTimeMillis();
+
+        new Thread ( new MyRunnableClass (method (0,4))). start ();
+        new Thread ( new MyRunnableClass (method (1,4))). start ();
+        new Thread ( new MyRunnableClass (method (2,4))). start ();
+        new Thread ( new MyRunnableClass (method (3,4))). start ();
+
         long b = System.currentTimeMillis();
-//        System.out.print (Arrays.toString (arr2));
         System.out.println (b-a);
     }
 }
 
-class MyThread extends Thread {
 
-    public MyThread(float method) {
-    }
+    class MyRunnableClass implements Runnable {
+        public MyRunnableClass(float method) {
 
+        }
 
-    public void run(){
+        @Override
+        public void run() {
 
         }
     }
