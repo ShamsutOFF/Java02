@@ -1,14 +1,20 @@
-package Lesson05;public class Main {
+package Lesson05;
+
+import java.util.Arrays;
+
+public class Main {
 
     static final int SIZE = 10000000 ;
     static final int HALF = SIZE / 2 ;
     static float [] arr = new float [ SIZE ];
+    static float [] arr2 = new float [ SIZE ];
 
 //    long a = System.currentTimeMillis();
 
     public static void main(String[] args) {
         for (int i = 0; i < SIZE; i++) {
             arr[i] = 1;
+            arr2[i] = 1;
             }
         method01();
         method02();
@@ -21,28 +27,41 @@ package Lesson05;public class Main {
                     Math . cos ( 0.4f + i / 2 ));
         }
         long b = System.currentTimeMillis();
+  //      System.out.print (Arrays.toString (arr));
         System.out.println (b-a);
     }
 
     public static void method02(){
         long a = System.currentTimeMillis();
-        float a1[] = new float[HALF], a2[] = new float[HALF];
-        System.arraycopy(arr, 0, a1, 0, HALF);
-        System.arraycopy(arr, HALF, a2, 0, HALF);
-        MyThread t1 = new MyThread ();
-        MyThread t2 = new MyThread ();
+        float a1[] = new float[HALF],
+                a2[] = new float[HALF];
+        System.arraycopy(arr2, 0, a1, 0, HALF);
+        System.arraycopy(arr2, HALF, a2, 0, HALF);
+        MyThread t1 = new MyThread (a1,0);
+        MyThread t2 = new MyThread (a2,HALF);
         t1.start ();
-
-        System.arraycopy (a1,0,arr,0,HALF);
-        System.arraycopy (a2,0,arr,HALF,HALF);
+        t2.start ();
+        System.arraycopy (a1,0,arr2,0,HALF);
+        System.arraycopy (a2,0,arr2,HALF,HALF);
+        long b = System.currentTimeMillis();
+ //       System.out.print (Arrays.toString (arr2));
+        System.out.println (b-a);
     }
 }
 
 class MyThread extends Thread {
+    public MyThread(float[] a, int b) {
+        for (int i = 0; i <a.length ; i++) {
+            a[i] = ( float )( a [ i ] * Math . sin ( 0.2f + (i+b) / 5 ) * Math . cos ( 0.2f + (i+b) / 5 ) *
+                    Math . cos ( 0.4f + (i+b) / 2 ));
+        }
+    }
+
     public void run(){
 
+        }
     }
-}
+
 
 /*
 Необходимо написать два метода, которые делают следующее:
