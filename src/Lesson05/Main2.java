@@ -1,11 +1,26 @@
 package Lesson05;
 
+import java.util.Arrays;
+import java.util.function.BiConsumer;
+
 public class Main2 {
 
-    static final int SIZE = 1000000 ;
+    static final int SIZE = 10000000;
     static float [] arr = new float [ SIZE ];
     static float [] arr2 = new float [ SIZE ];
-
+    static final BiConsumer<Integer, Integer> fillArray = (a, b) -> {
+        for (int i = a; i < arr2.length ; i+=b) {
+            arr2[i] = ( float )( arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
+                    Math . cos ( 0.4f + i / 2 ));
+        }
+    };
+//    public MyRunnableClass(int a, int b) {
+//
+//        for (int i = a; i < Main2.arr2.length ; i+=b) {
+//            Main2.arr2[i] = ( float )( Main2.arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
+//                    Math . cos ( 0.4f + i / 2 ));
+//        }
+//    }
 
     public static void main(String[] args) {
         for (int i = 0; i < SIZE; i++) {
@@ -23,37 +38,31 @@ public class Main2 {
                     Math . cos ( 0.4f + i / 2 ));
         }
         long b = System.currentTimeMillis();
- //       System.out.print (Arrays.toString (arr));
-        System.out.println (b-a);
+        System.out.println ("Без потоков: " + (b - a) + "мс");
+   //     System.out.print (Arrays.toString (arr));
     }
 
-    public static void method02(){
+    public static void method02() {
 
-        long a = System.currentTimeMillis();
-        int threads = 5;
-        for (int i = 0; i <threads ; i++) {
-            new Thread ( new MyRunnableClass  (i,threads)). start ();
+        long a = System.currentTimeMillis ( );
+        int threads = 7;
+        Thread t1 = null;
+        for (int i = 0; i < threads; i++) {
+            int finalI = i;
+            t1 = new Thread (() -> fillArray.accept (finalI, threads));
+            t1.start ();
         }
-        long b = System.currentTimeMillis();
-        System.out.println (b-a);
+        try {
+            t1.join ( );
+        } catch (InterruptedException e) {
+            e.printStackTrace ( );
+        }
+ //       System.out.print (Arrays.toString (arr2));
+        long b = System.currentTimeMillis ( );
+        System.out.println ("С потоками: " + (b - a) + "мс");
+        System.out.println ("Массивы одинаковы : " + Arrays.equals(arr, arr2));
     }
 }
-
-    class MyRunnableClass implements Runnable {
-
-        public MyRunnableClass(int a, int b) {
-            System.out.println ("!");
-            for (int i = a; i < Main2.arr2.length ; i+=b) {
-                    Main2.arr2[i] = ( float )( Main2.arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
-                        Math . cos ( 0.4f + i / 2 ));
-                    }
-        }
-
-        @Override
-        public void run() {
-
-        }
-    }
 
 
 /*
