@@ -1,13 +1,11 @@
 package Lesson05;
 
-import java.util.Arrays;
-
 public class Main2 {
 
-    static final int SIZE = 100000 ;
-    static final int HALF = SIZE / 2 ;
+    static final int SIZE = 1000000 ;
     static float [] arr = new float [ SIZE ];
     static float [] arr2 = new float [ SIZE ];
+
 
     public static void main(String[] args) {
         for (int i = 0; i < SIZE; i++) {
@@ -17,18 +15,11 @@ public class Main2 {
         method01();
         method02();
     }
-    public static float method (int a, int b){
-        for (int i = a; i <arr.length ; i+=b) {
-            arr2[i] = ( float )( arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
-                    Math . cos ( 0.4f + i / 2 ));
-        }
-        return 0;
-    }
 
     public static void method01(){
         long a = System.currentTimeMillis();
-        for (int i = 0; i < SIZE; i++) {
-            arr[i] = ( float )( arr [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
+        for (int i = 0; i < arr.length; i++) {
+                        arr[i] = ( float )( arr [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
                     Math . cos ( 0.4f + i / 2 ));
         }
         long b = System.currentTimeMillis();
@@ -39,21 +30,23 @@ public class Main2 {
     public static void method02(){
 
         long a = System.currentTimeMillis();
-
-        new Thread ( new MyRunnableClass (method (0,4))). start ();
-        new Thread ( new MyRunnableClass (method (1,4))). start ();
-        new Thread ( new MyRunnableClass (method (2,4))). start ();
-        new Thread ( new MyRunnableClass (method (3,4))). start ();
-
+        int threads = 5;
+        for (int i = 0; i <threads ; i++) {
+            new Thread ( new MyRunnableClass  (i,threads)). start ();
+        }
         long b = System.currentTimeMillis();
         System.out.println (b-a);
     }
 }
 
-
     class MyRunnableClass implements Runnable {
-        public MyRunnableClass(float method) {
 
+        public MyRunnableClass(int a, int b) {
+            System.out.println ("!");
+            for (int i = a; i < Main2.arr2.length ; i+=b) {
+                    Main2.arr2[i] = ( float )( Main2.arr2 [ i ] * Math . sin ( 0.2f + i / 5 ) * Math . cos ( 0.2f + i / 5 ) *
+                        Math . cos ( 0.4f + i / 2 ));
+                    }
         }
 
         @Override
