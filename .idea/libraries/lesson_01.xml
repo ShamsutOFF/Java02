@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="lesson_01">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/geekbrains/lesson_01.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
